@@ -88,14 +88,10 @@ mongo-express
 docker logs <containerID>
 ```
 
-5. **Finally, I ran the node .js app:**
+5. **Finally, I created a new database via MongoExpress UI, configured the Nodejs application code to connect with the Mongo database, then ran the node .js app:**
 
 ```bash
 cd app
 npm install 
 node server.js
 ```
-
-
-
-
