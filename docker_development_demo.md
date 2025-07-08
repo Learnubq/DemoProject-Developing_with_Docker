@@ -51,8 +51,50 @@ docker network ls
 **To make the MongoDB container and the Mongo-express container run in this Mongo Network,I then provided that network option when I ran the container, in the docker run command**
 
 ```bash
+docker run -d \
+-p 27017:27017 \
+-e MONGO_INITDB_ROOT_USERNAME=admin \
+-e MONGO_INITDB_ROOT_PASSWORD=password \
+--name mongodb \
+--net mongo-network \
+mongo
+```
 
+**To see whether it was successful I then executed the following
 
+```bash
+docker logs <containerID>
+```
+
+**To make Mongo-express connect to the running MongoDB container on startup, I executed the following command, including the Docker server env variable and mongo network, which would then allow MongoDB to connect to the Mongo-express container on startup**
+
+```bash
+docker run -d \
+-p 8081:8081 \
+-e ME_CONFIG_MONGODB_ADMINUSERNAME=admin \
+-e ME_CONFIG_MONGODB_ADMINPASSWORD=password \
+-e ME_CONFIG_BASICAUTH_USERNAME=user \
+-e ME_CONFIG_BASICAUTH_PASSWORD=pass \
+--net mongo-network \
+--name mongo-express \
+-e ME_CONFIG_MONGODB_SERVER=mongodb \
+-e ME_CONFIG_MONGODB_URL=mongodb://mongodb:<portnumberIused>
+mongo-express
+```
+
+**To see whether it was successful I then executed the following
+
+```bash
+docker logs <containerID>
+```
+
+5. **Finally, I ran the node .js app:**
+
+```bash
+cd app
+npm install 
+node server.js
+```
 
 
 
